@@ -1,8 +1,13 @@
 import React from "react";
-import useCounter from "../Hooks/useCounter";
+import { useCounterWithContext } from "../Provider/Provider";
 
 const Counter = () => {
-  const { onIcrease, onDicrease, value, minimumReached } = useCounter();
+  const {
+    onIcrease,
+    onDicrease,
+    value,
+    minimumReached
+  } = useCounterWithContext();
 
   return (
     <>
