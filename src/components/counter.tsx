@@ -1,20 +1,28 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-const Counter = () => {
+type useCounterType = {
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+  value: number;
+  minimumReached: boolean;
+};
+
+const useCounter = (): useCounterType => {
   const [value, setValue] = useState<number>(0);
   const [minimumReached, setMinimumReached] = useState<boolean>(false);
-  const [showLimitReached, setShowLimitReached] = useState<boolean>(false);
 
   useEffect(() => {
     value === 0 ? setMinimumReached(true) : setMinimumReached(false);
-    value === 10 && setShowLimitReached(true);
   }, [value]);
 
-  const label = useMemo(() => {
-    return (
-      <span> {showLimitReached ? `limit reached` : "limit not reached"}</span>
-    );
-  }, []);
+  return {
+    setValue,
+    value,
+    minimumReached
+  };
+};
+
+const Counter = () => {
+  const { setValue, value, minimumReached } = useCounter();
 
   return (
     <>
@@ -29,7 +37,22 @@ const Counter = () => {
           Decrease
         </button>
       </div>
-      {label}
+    </>
+  );
+};
+
+export const Counter2 = () => {
+  const { setValue, value, minimumReached } = useCounter();
+
+  return (
+    <>
+      <div>
+        <a onClick={() => setValue(value + 1)}>Increase</a>
+        <span style={{ marginLeft: "5px" }}>{value}</span>
+        <a style={{ marginLeft: "5px" }} onClick={() => setValue(value + -1)}>
+          Decrease
+        </a>
+      </div>
     </>
   );
 };
