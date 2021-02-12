@@ -1,4 +1,5 @@
 import React from "react";
+import { Slider } from "antd";
 import { useCounterWithContext } from "../Provider/Provider";
 
 const Counter = () => {
@@ -24,6 +25,11 @@ const Counter = () => {
       </div>
     </>
   );
+};
+
+export const CounterSlider = () => {
+  const { value } = useCounterWithContext();
+  return <Slider defaultValue={value} value={value} disabled />;
 };
 
 export default Counter;

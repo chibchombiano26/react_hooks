@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-type useCounterType = {
+export type useCounterType = {
   value: number;
   minimumReached: boolean;
   onDicrease: () => void;
@@ -12,7 +12,11 @@ const useCounter = (): useCounterType => {
   const [minimumReached, setMinimumReached] = useState<boolean>(false);
 
   useEffect(() => {
-    value === 0 ? setMinimumReached(true) : setMinimumReached(false);
+    if (value === 0) {
+      setMinimumReached(true);
+    } else {
+      setMinimumReached(false);
+    }
   }, [value]);
 
   const onIcrease = () => {

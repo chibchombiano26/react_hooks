@@ -1,5 +1,5 @@
 import "./styles.css";
-import Counter from "./components/counter";
+import Counter, { CounterSlider } from "./components/counter";
 import { CounterProvider } from "./Provider/Provider";
 
 export default function App() {
@@ -8,6 +8,7 @@ export default function App() {
       <CounterProvider>
         <Counter />
         <Counter />
+        <CounterSlider />
       </CounterProvider>
     </div>
   );

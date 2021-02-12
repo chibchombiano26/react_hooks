@@ -1,18 +1,24 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import isEmpty from "lodash/isEmpty";
+import { useCounterType } from "../Hooks/useCounter";
 
-export const UseCounterContext = createContext({});
+export const UseCounterContext = createContext<useCounterType>(null!);
 
-export const CounterProvider = (props) => {
+export const CounterProvider: React.FC = (props) => {
   const [value, setValue] = useState<number>(0);
   const [minimumReached, setMinimumReached] = useState<boolean>(false);
 
   useEffect(() => {
-    value === 0 ? setMinimumReached(true) : setMinimumReached(false);
+    if (value === 0) {
+      setMinimumReached(true);
+    } else {
+      setMinimumReached(false);
+    }
   }, [value]);
 
-  const onIcrease = () => {
+  function onIcrease() {
     setValue(value + 1);
-  };
+  }
 
   const onDicrease = () => {
     setValue(value - 1);
@@ -34,9 +40,8 @@ export const CounterProvider = (props) => {
 
 export const useCounterWithContext = () => {
   const context = useContext(UseCounterContext);
-
-  if (!context) {
-    throw new Error("Please use this hook with the proper provider");
+  if (isEmpty(context)) {
+    console.log("No encuentro mi contexto");
   }
 
   return context;
